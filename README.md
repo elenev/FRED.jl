@@ -6,21 +6,30 @@ This package provides a Julia interface to the Federal Reserve Economic Data (FR
 
 The package is not yet registered, but can be installed by running
 
-```julia-repl
-pkg> add https://www.github.com/elenev/FRED.jl
+```sh
+pkg> add "https://www.github.com/elenev/FRED.jl"
 ```
+or
+
+```julia
+julia> using Pkg
+julia> Pkg.add("https://www.github.com/elenev/FRED.jl")
+```
+
 ## Usage
 
 ### Connection
 To access FRED, you must provide your API key. The easiest way to do this is to store it in an environment variable called `FRED_API_KEY`. You can also pass it directly to the `FREDConnection` constructor.
 
-```julia-repl
+```julia
+julia> using FRED
 julia> conn = FREDConnection(api_key="abcdefj1234")
 ```
 
 or 
 
-```julia-repl
+```julia
+julia> using FRED
 julia> ENV["FRED_API_KEY"] = "abcdefj1234"
 julia> conn = FREDConnection()
 ```
@@ -31,7 +40,7 @@ It is strongly recommended NOT to store the API key directly in your code, as th
 
 The `get_fred_data` function retrieves a time series from FRED along with metadata for that variable. The function returns a `DataFrame` with columns `date` and `value`. For example,
 
-```julia-repl
+```sh
 julia> get_fred_data(conn, "GS10")
 854×2 DataFrame
  Row │ date        value    
@@ -49,7 +58,7 @@ retrieves monthly observations of the 10-year Treasury constant maturity rate.
 
 If you saved your API key to the environment variable, you don't need to pass the connection object:
 
-```julia-repl
+```julia
 df = get_fred_data("GS10");
 ```
 
